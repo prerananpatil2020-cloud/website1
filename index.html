@@ -10,16 +10,17 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="#">DailyBlog</a>
-      <nav class="nav">
-        <a href="#">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+      <a class="brand" href="#home">DailyBlog</a>
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Get in touch</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
+  <main id="home" class="container">
     <section class="hero">
       <div class="hero-content">
         <h2 class="eyebrow">Featured</h2>
@@ -72,6 +73,22 @@
         <button class="btn small">Subscribe</button>
       </form>
     </aside>
+
+    <section id="about" class="about">
+      <h2>About DailyBlog</h2>
+      <p class="muted">DailyBlog shares concise notes on focus, tools, and habits — one short post at a time.</p>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <p class="muted">Have feedback or want to collaborate? Use the form below or email hello@dailyblog.example.</p>
+      <form class="contact-form" onsubmit="return false;">
+        <input type="text" placeholder="Your name" aria-label="Your name">
+        <input type="email" placeholder="Your email" aria-label="Your email">
+        <textarea placeholder="Message" rows="4" aria-label="Message"></textarea>
+        <button class="btn">Send message</button>
+      </form>
+    </section>
 
   </main>
 
