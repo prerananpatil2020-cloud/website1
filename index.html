@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DailyBlog — Minimal Daily Posts</title>
+  <meta name="description" content="DailyBlog — short, thoughtful daily posts.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#">DailyBlog</a>
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h2 class="eyebrow">Featured</h2>
+        <h1>Making small progress every day</h1>
+        <p class="lead">Short essays and notes about focus, craft, and the small habits that compound.</p>
+        <a class="btn" href="#post-1">Read more</a>
+      </div>
+    </section>
+
+    <section class="controls">
+      <input id="search" type="search" placeholder="Search posts by title, excerpt, or tag" aria-label="Search posts">
+      <div class="tags" aria-hidden="false">
+        <button data-tag="all" class="tag active">All</button>
+        <button data-tag="focus" class="tag">Focus</button>
+        <button data-tag="habit" class="tag">Habit</button>
+        <button data-tag="tools" class="tag">Tools</button>
+      </div>
+    </section>
+
+    <section class="posts" id="posts">
+      <article class="post" data-tags="habit">
+        <a id="post-1"></a>
+        <h3 class="post-title">Build habit scaffolding, not motivation</h3>
+        <p class="meta">Feb 25, 2026 · Habit</p>
+        <p class="excerpt">Motivation is fleeting; designing a repeatable scaffolding makes daily work inevitable. Small triggers + tiny rewards beat big bursts.</p>
+        <a class="read" href="#">Read →</a>
+      </article>
+
+      <article class="post" data-tags="focus,tools">
+        <h3 class="post-title">Tools that reduce friction</h3>
+        <p class="meta">Feb 24, 2026 · Tools</p>
+        <p class="excerpt">A good tool removes decision overhead. Optimize for clarity and speed—then keep it simple.</p>
+        <a class="read" href="#">Read →</a>
+      </article>
+
+      <article class="post" data-tags="focus">
+        <h3 class="post-title">Single-tasking in a noisy world</h3>
+        <p class="meta">Feb 23, 2026 · Focus</p>
+        <p class="excerpt">Protect pockets of uninterrupted time. The quality of focused minutes compounds into meaningful output.</p>
+        <a class="read" href="#">Read →</a>
+      </article>
+
+    </section>
+
+    <aside class="subscribe">
+      <h4>Daily note</h4>
+      <p>Get a short weekly summary — no spam. Just clear notes.</p>
+      <form onsubmit="return false;" class="subscribe-form">
+        <input type="email" placeholder="your@email.com" aria-label="Email address">
+        <button class="btn small">Subscribe</button>
+      </form>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 DailyBlog — Short, focused essays.</p>
+      <p class="muted">Built with a minimalist approach.</p>
+    </div>
+  </footer>
+
+<script>
+// Small client-side search + tag filter
+const postsEl = document.getElementById('posts');
+const posts = Array.from(document.querySelectorAll('.post'));
+const searchInput = document.getElementById('search');
+const tagButtons = document.querySelectorAll('.tag');
+
+function applyFilter() {
+  const q = searchInput.value.trim().toLowerCase();
+  const activeTagBtn = document.querySelector('.tag.active');
+  const activeTag = activeTagBtn ? activeTagBtn.dataset.tag : 'all';
+
+  posts.forEach(post => {
+    const title = post.querySelector('.post-title').textContent.toLowerCase();
+    const excerpt = post.querySelector('.excerpt').textContent.toLowerCase();
+    const tags = post.dataset.tags ? post.dataset.tags.split(',') : [];
+
+    const matchesQuery = q === '' || title.includes(q) || excerpt.includes(q) || tags.some(t => t.includes(q));
+    const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+
+    post.style.display = (matchesQuery && matchesTag) ? '' : 'none';
+  });
+}
+
+searchInput.addEventListener('input', applyFilter);
+
+tagButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tagButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
+  });
+});
+</script>
+</body>
+</html>
